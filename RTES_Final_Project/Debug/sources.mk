@@ -112,7 +112,6 @@ PDE_DEPS__QUOTED :=
 # Every subdirectory with source files must be described here
 SUBDIRS := \
 . \
-drivers \
 third_party/FreeRTOS/Source \
 third_party/FreeRTOS/Source/portable/CCS/ARM_CM4F \
 third_party/FreeRTOS/Source/portable/MemMang \

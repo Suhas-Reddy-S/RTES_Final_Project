@@ -13,7 +13,7 @@ third_party/FreeRTOS/Source/portable/CCS/ARM_CM4F/port.obj: C:/ti/ccs1260/ccs/to
 third_party/FreeRTOS/Source/portable/CCS/ARM_CM4F/port.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/machine/_types.h
 third_party/FreeRTOS/Source/portable/CCS/ARM_CM4F/port.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/machine/_stdint.h
 third_party/FreeRTOS/Source/portable/CCS/ARM_CM4F/port.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/sys/_stdint.h
-third_party/FreeRTOS/Source/portable/CCS/ARM_CM4F/port.obj: C:/Users/suhas/workspace_v12/RTES_HW3/FreeRTOSConfig.h
+third_party/FreeRTOS/Source/portable/CCS/ARM_CM4F/port.obj: C:/Users/suhas/workspace_v12/RTES_Final_Project/RTES_Final_Project/FreeRTOSConfig.h
 third_party/FreeRTOS/Source/portable/CCS/ARM_CM4F/port.obj: C:/ti/tivaware_c_series_2_1_4_178/third_party/FreeRTOS/Source/include/projdefs.h
 third_party/FreeRTOS/Source/portable/CCS/ARM_CM4F/port.obj: C:/ti/tivaware_c_series_2_1_4_178/third_party/FreeRTOS/Source/include/portable.h
 third_party/FreeRTOS/Source/portable/CCS/ARM_CM4F/port.obj: C:/ti/tivaware_c_series_2_1_4_178/third_party/FreeRTOS/Source/include/deprecated_definitions.h
@@ -48,7 +48,7 @@ C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/machine/_stdint.h
 
 C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/sys/_stdint.h:
 
-C:/Users/suhas/workspace_v12/RTES_HW3/FreeRTOSConfig.h:
+C:/Users/suhas/workspace_v12/RTES_Final_Project/RTES_Final_Project/FreeRTOSConfig.h:
 
 C:/ti/tivaware_c_series_2_1_4_178/third_party/FreeRTOS/Source/include/projdefs.h:
 

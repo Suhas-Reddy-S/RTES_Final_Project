@@ -15,17 +15,21 @@ main.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/sys/_st
 main.obj: C:/ti/tivaware_c_series_2_1_4_178/inc/hw_memmap.h
 main.obj: C:/ti/tivaware_c_series_2_1_4_178/inc/hw_types.h
 main.obj: C:/ti/tivaware_c_series_2_1_4_178/inc/hw_ints.h
+main.obj: C:/ti/tivaware_c_series_2_1_4_178/inc/hw_i2c.h
 main.obj: C:/ti/tivaware_c_series_2_1_4_178/driverlib/gpio.h
 main.obj: C:/ti/tivaware_c_series_2_1_4_178/driverlib/pin_map.h
 main.obj: C:/ti/tivaware_c_series_2_1_4_178/driverlib/rom.h
 main.obj: C:/ti/tivaware_c_series_2_1_4_178/driverlib/sysctl.h
 main.obj: C:/ti/tivaware_c_series_2_1_4_178/driverlib/uart.h
 main.obj: C:/ti/tivaware_c_series_2_1_4_178/driverlib/timer.h
+main.obj: C:/ti/tivaware_c_series_2_1_4_178/driverlib/ssi.h
+main.obj: C:/ti/tivaware_c_series_2_1_4_178/driverlib/i2c.h
+main.obj: C:/ti/tivaware_c_series_2_1_4_178/driverlib/pwm.h
 main.obj: C:/ti/tivaware_c_series_2_1_4_178/utils/uartstdio.h
 main.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/stdarg.h
 main.obj: C:/ti/tivaware_c_series_2_1_4_178/third_party/FreeRTOS/Source/include/FreeRTOS.h
 main.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/stddef.h
-main.obj: C:/Users/suhas/workspace_v12/RTES_HW3/FreeRTOSConfig.h
+main.obj: C:/Users/suhas/workspace_v12/RTES_Final_Project/RTES_Final_Project/FreeRTOSConfig.h
 main.obj: C:/ti/tivaware_c_series_2_1_4_178/third_party/FreeRTOS/Source/include/projdefs.h
 main.obj: C:/ti/tivaware_c_series_2_1_4_178/third_party/FreeRTOS/Source/include/portable.h
 main.obj: C:/ti/tivaware_c_series_2_1_4_178/third_party/FreeRTOS/Source/include/deprecated_definitions.h
@@ -66,6 +70,8 @@ C:/ti/tivaware_c_series_2_1_4_178/inc/hw_types.h:
 
 C:/ti/tivaware_c_series_2_1_4_178/inc/hw_ints.h:
 
+C:/ti/tivaware_c_series_2_1_4_178/inc/hw_i2c.h:
+
 C:/ti/tivaware_c_series_2_1_4_178/driverlib/gpio.h:
 
 C:/ti/tivaware_c_series_2_1_4_178/driverlib/pin_map.h:
@@ -78,6 +84,12 @@ C:/ti/tivaware_c_series_2_1_4_178/driverlib/uart.h:
 
 C:/ti/tivaware_c_series_2_1_4_178/driverlib/timer.h:
 
+C:/ti/tivaware_c_series_2_1_4_178/driverlib/ssi.h:
+
+C:/ti/tivaware_c_series_2_1_4_178/driverlib/i2c.h:
+
+C:/ti/tivaware_c_series_2_1_4_178/driverlib/pwm.h:
+
 C:/ti/tivaware_c_series_2_1_4_178/utils/uartstdio.h:
 
 C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/stdarg.h:
@@ -86,7 +98,7 @@ C:/ti/tivaware_c_series_2_1_4_178/third_party/FreeRTOS/Source/include/FreeRTOS.h
 
 C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/stddef.h:
 
-C:/Users/suhas/workspace_v12/RTES_HW3/FreeRTOSConfig.h:
+C:/Users/suhas/workspace_v12/RTES_Final_Project/RTES_Final_Project/FreeRTOSConfig.h:
 
 C:/ti/tivaware_c_series_2_1_4_178/third_party/FreeRTOS/Source/include/projdefs.h:
 

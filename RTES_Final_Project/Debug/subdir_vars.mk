@@ -9,39 +9,27 @@ CMD_SRCS += \
 ../freertos_demo_ccs.cmd 
 
 C_SRCS += \
-../Q1.c \
-../Q2.c \
-../Q3.c \
+../main.c \
 ../startup_ccs.c 
 
 C_DEPS += \
-./Q1.d \
-./Q2.d \
-./Q3.d \
+./main.d \
 ./startup_ccs.d 
 
 OBJS += \
-./Q1.obj \
-./Q2.obj \
-./Q3.obj \
+./main.obj \
 ./startup_ccs.obj 
 
 OBJS__QUOTED += \
-"Q1.obj" \
-"Q2.obj" \
-"Q3.obj" \
+"main.obj" \
 "startup_ccs.obj" 
 
 C_DEPS__QUOTED += \
-"Q1.d" \
-"Q2.d" \
-"Q3.d" \
+"main.d" \
 "startup_ccs.d" 
 
 C_SRCS__QUOTED += \
-"../Q1.c" \
-"../Q2.c" \
-"../Q3.c" \
+"../main.c" \
 "../startup_ccs.c" 
 
 

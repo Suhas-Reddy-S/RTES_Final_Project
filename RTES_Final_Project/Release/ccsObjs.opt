@@ -1,6 +1,4 @@
-"./seqgen.obj"
-"./seqgen100x.obj"
-"./seqgen2x.obj"
+"./main.obj"
 "./startup_ccs.obj"
 "./third_party/FreeRTOS/Source/list.obj"
 "./third_party/FreeRTOS/Source/queue.obj"

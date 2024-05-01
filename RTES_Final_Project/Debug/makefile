@@ -10,12 +10,8 @@ GEN_OPTS__FLAG :=
 GEN_CMDS__FLAG := 
 
 ORDERED_OBJS += \
-"./Q1.obj" \
-"./Q2.obj" \
-"./Q3.obj" \
+"./main.obj" \
 "./startup_ccs.obj" \
-"./drivers/buttons.obj" \
-"./drivers/rgb.obj" \
 "./third_party/FreeRTOS/Source/list.obj" \
 "./third_party/FreeRTOS/Source/queue.obj" \
 "./third_party/FreeRTOS/Source/tasks.obj" \
@@ -37,13 +33,11 @@ RMDIR := RMDIR /S/Q
 # All of the sources participating in the build are defined here
 -include sources.mk
 -include subdir_vars.mk
--include drivers/subdir_vars.mk
 -include third_party/FreeRTOS/Source/subdir_vars.mk
 -include third_party/FreeRTOS/Source/portable/CCS/ARM_CM4F/subdir_vars.mk
 -include third_party/FreeRTOS/Source/portable/MemMang/subdir_vars.mk
 -include utils/subdir_vars.mk
 -include subdir_rules.mk
--include drivers/subdir_rules.mk
 -include third_party/FreeRTOS/Source/subdir_rules.mk
 -include third_party/FreeRTOS/Source/portable/CCS/ARM_CM4F/subdir_rules.mk
 -include third_party/FreeRTOS/Source/portable/MemMang/subdir_rules.mk
@@ -144,20 +138,20 @@ endif
 
 # Add inputs and outputs from these tool invocations to the build variables 
 EXE_OUTPUTS += \
-RTES_Exercise5.out 
+RTES_Final_Project.out 
 
 EXE_OUTPUTS__QUOTED += \
-"RTES_Exercise5.out" 
+"RTES_Final_Project.out" 
 
 
 # All Target
-all: RTES_Exercise5.out
+all: RTES_Final_Project.out
 
 # Tool invocations
-RTES_Exercise5.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
+RTES_Final_Project.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 	@echo 'Building target: "$@"'
 	@echo 'Invoking: Arm Linker'
-	"C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me -Ooff --advice:power=all --define=ccs="ccs" --define=PART_TM4C123GH6PM --define=TARGET_IS_TM4C123_RB1 -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --gen_func_subsections=on --abi=eabi --ual -z -m"freertos_demo_ccs.map" --heap_size=0 --stack_size=512 -i"C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/lib" -i"C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="RTES_Exercise5_linkInfo.xml" --rom_model -o "RTES_Exercise5.out" $(ORDERED_OBJS)
+	"C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me -Ooff --advice:power=all --define=ccs="ccs" --define=PART_TM4C123GH6PM --define=TARGET_IS_TM4C123_RB1 -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --gen_func_subsections=on --abi=eabi --ual -z -m"freertos_demo_ccs.map" --heap_size=0 --stack_size=512 -i"C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/lib" -i"C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="RTES_Final_Project_linkInfo.xml" --rom_model -o "RTES_Final_Project.out" $(ORDERED_OBJS)
 	@echo 'Finished building target: "$@"'
 	@echo ' '
 	@$(MAKE) --no-print-directory post-build
@@ -165,14 +159,14 @@ RTES_Exercise5.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 # Other Targets
 clean:
 	-$(RM) $(EXE_OUTPUTS__QUOTED)
-	-$(RM) "Q1.obj" "Q2.obj" "Q3.obj" "startup_ccs.obj" "drivers\buttons.obj" "drivers\rgb.obj" "third_party\FreeRTOS\Source\list.obj" "third_party\FreeRTOS\Source\queue.obj" "third_party\FreeRTOS\Source\tasks.obj" "third_party\FreeRTOS\Source\portable\CCS\ARM_CM4F\port.obj" "third_party\FreeRTOS\Source\portable\CCS\ARM_CM4F\portasm.obj" "third_party\FreeRTOS\Source\portable\MemMang\heap_2.obj" "utils\uartstdio.obj" "utils\ustdlib.obj" 
-	-$(RM) "Q1.d" "Q2.d" "Q3.d" "startup_ccs.d" "drivers\buttons.d" "drivers\rgb.d" "third_party\FreeRTOS\Source\list.d" "third_party\FreeRTOS\Source\queue.d" "third_party\FreeRTOS\Source\tasks.d" "third_party\FreeRTOS\Source\portable\CCS\ARM_CM4F\port.d" "third_party\FreeRTOS\Source\portable\MemMang\heap_2.d" "utils\uartstdio.d" "utils\ustdlib.d" 
+	-$(RM) "main.obj" "startup_ccs.obj" "third_party\FreeRTOS\Source\list.obj" "third_party\FreeRTOS\Source\queue.obj" "third_party\FreeRTOS\Source\tasks.obj" "third_party\FreeRTOS\Source\portable\CCS\ARM_CM4F\port.obj" "third_party\FreeRTOS\Source\portable\CCS\ARM_CM4F\portasm.obj" "third_party\FreeRTOS\Source\portable\MemMang\heap_2.obj" "utils\uartstdio.obj" "utils\ustdlib.obj" 
+	-$(RM) "main.d" "startup_ccs.d" "third_party\FreeRTOS\Source\list.d" "third_party\FreeRTOS\Source\queue.d" "third_party\FreeRTOS\Source\tasks.d" "third_party\FreeRTOS\Source\portable\CCS\ARM_CM4F\port.d" "third_party\FreeRTOS\Source\portable\MemMang\heap_2.d" "utils\uartstdio.d" "utils\ustdlib.d" 
 	-$(RM) "third_party\FreeRTOS\Source\portable\CCS\ARM_CM4F\portasm.d" 
 	-@echo 'Finished clean'
 	-@echo ' '
 
 post-build:
-	-"C:/ti/ccs1260/ccs/utils/tiobj2bin/tiobj2bin" "RTES_Exercise5.out" "RTES_Exercise5.bin" "C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/bin/armofd" "C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/bin/armhex" "C:/ti/ccs1260/ccs/utils/tiobj2bin/mkhex4bin"
+	-"C:/ti/ccs1260/ccs/utils/tiobj2bin/tiobj2bin" "RTES_Final_Project.out" "RTES_Final_Project.bin" "C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/bin/armofd" "C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/bin/armhex" "C:/ti/ccs1260/ccs/utils/tiobj2bin/mkhex4bin"
 	-@echo ' '
 
 .PHONY: all clean dependents
