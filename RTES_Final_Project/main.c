@@ -37,7 +37,7 @@
 #include "semphr.h"
 #include "stdbool.h"
 
-#define SCALE (1)
+#define SCALE (2)
 void init_i2c0(void);
 void button_init();
 void write_to_accelerometer(uint32_t ui32Base, uint8_t ui8SlaveAddr,
@@ -52,7 +52,7 @@ xSemaphoreHandle semSched, semS1, semS2, semS3;
 volatile bool abortS1 = false, abortS2 = false, abortS3 = false;
 volatile uint32_t T1 = 1 * SCALE;
 volatile uint32_t T2 = 2 * SCALE;
-volatile uint32_t T2 = 3 * SCALE;
+volatile uint32_t T3 = 1 * SCALE;
 
 #ifdef DEBUG
 void
@@ -136,7 +136,6 @@ void write_to_accelerometer(uint32_t ui32Base, uint8_t ui8SlaveAddr,
         while (I2CMasterBusy(ui32Base))
             ;
     }
-
     va_end(vargs);
 }
 
@@ -174,7 +173,6 @@ void ButtonHandler(void)
     GPIOIntDisable(GPIO_PORTF_BASE, GPIO_PIN_4);
     GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_1, GPIO_PIN_1);
     abortS1 = true;
-    xSemaphoreGive(semS3);
 }
 
 void ConfigureUART(void)
@@ -199,8 +197,7 @@ void tmp_sensor_init()
     GPIOPinTypeSSI(GPIO_PORTA_BASE, GPIO_PIN_5 | GPIO_PIN_4 | GPIO_PIN_3 |
     GPIO_PIN_2);
     SSIConfigSetExpClk(SSI0_BASE, SysCtlClockGet(), SSI_FRF_MOTO_MODE_0,
-    SSI_MODE_MASTER,
-                       1000000, 16);
+    SSI_MODE_MASTER, 1000000, 16);
     SSIEnable(SSI0_BASE);
 }
 
@@ -218,6 +215,7 @@ uint16_t tmp_readdata(void)
 
     return tempData;
 }
+
 
 void heating_pwm_init()
 {
@@ -238,27 +236,24 @@ void heating_pwm_init()
 void seat_pwm_init()
 {
     SysCtlPWMClockSet(SYSCTL_SYSDIV_1);
-    SysCtlPeripheralEnable(SYSCTL_PERIPH_PWM1);
+    SysCtlPeripheralEnable(SYSCTL_PERIPH_PWM0);
     SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOB);
     GPIOPinConfigure(GPIO_PB7_M0PWM1);
     GPIOPinTypePWM(GPIO_PORTB_BASE, GPIO_PIN_7);
-    PWMGenConfigure(PWM1_BASE, PWM_GEN_0, PWM_GEN_MODE_UP_DOWN |
+    PWMGenConfigure(PWM0_BASE, PWM_GEN_0, PWM_GEN_MODE_UP_DOWN |
     PWM_GEN_MODE_NO_SYNC);
-    PWMGenPeriodSet(PWM1_BASE, PWM_GEN_0, 200000);
-    PWMPulseWidthSet(PWM1_BASE, PWM_OUT_1,
-                     PWMGenPeriodGet(PWM1_BASE, PWM_GEN_0) / 10);
-    PWMOutputState(PWM1_BASE, PWM_OUT_1_BIT, true);
-    PWMGenEnable(PWM1_BASE, PWM_GEN_0)
-);
+    PWMGenPeriodSet(PWM0_BASE, PWM_GEN_0, 200000);
+    PWMPulseWidthSet(PWM0_BASE, PWM_OUT_1,
+                     PWMGenPeriodGet(PWM0_BASE, PWM_GEN_0));
+    PWMOutputState(PWM0_BASE, PWM_OUT_1_BIT, true);
+    PWMGenEnable(PWM0_BASE, PWM_GEN_0);
 }
 
 // Runs @ 1000Hz
 static void Sequencer_thread(void *params)
 {
-uint32_t startTime;
 static volatile uint32_t schedCnt = 0;
-startTime = xTaskGetTickCount();
-UARTprintf("Sequencer Started at %u msec\n", startTime);
+UARTprintf("Sequencer Started at %u msec\n", xTaskGetTickCount());
 while (1)
 {
     xSemaphoreTake(semSched, portMAX_DELAY);
@@ -271,7 +266,7 @@ while (1)
     {
         xSemaphoreGive(semS2);
     }
-    if (schedCnt % T3 == 0)
+    if (schedCnt % T3 == 0 && abortS1)
     {
         xSemaphoreGive(semS3);
     }
@@ -281,18 +276,20 @@ while (1)
 // Runs @ 5Hz
 static void service1(void *params)
 {
-//    uint32_t startTime, execTime;
 static volatile uint16_t acc_xh = 0, acc_xl = 0;
-
+static volatile uint16_t gyro_xh = 0, gyro_xl = 0;
+uint32_t startTime, endTime;
 while (!abortS1)
 {
     xSemaphoreTake(semS1, portMAX_DELAY);
-
+    startTime = xTaskGetTickCount();
     acc_xh = (read_from_accelerometer(I2C0_BASE, 0x68, 0x3B) << 8);
     acc_xl = read_from_accelerometer(I2C0_BASE, 0x68, 0x3C);
     acc_xh |= acc_xl;
-
-    UARTprintf("A: %d\n", acc_xh);
+    gyro_xh = (read_from_accelerometer(I2C0_BASE, 0x68, 0x43) << 8);
+    gyro_xl = read_from_accelerometer(I2C0_BASE, 0x68, 0x44);
+    endTime = xTaskGetTickCount();
+    //UARTprintf("A: %d, G: %d, E: %d\n", acc_xh, gyro_xh, endTime - startTime);
 }
 UARTprintf("S1 exit\n");
 vTaskDelete(NULL);
@@ -300,27 +297,37 @@ vTaskDelete(NULL);
 
 static void service2(void *params)
 {
+    uint32_t startTime, endTime;
+    uint16_t temp;
 while (!abortS2)
 {
     xSemaphoreTake(semS2, portMAX_DELAY);
-    UARTprintf("\rT: %d\n", tmp_readdata());
+    startTime = xTaskGetTickCount();
+    temp = tmp_readdata();
     if (abortS1)
     {
         PWMOutputInvert(PWM0_BASE, PWM_OUT_0_BIT, true);
     }
+    endTime = xTaskGetTickCount();
+    UARTprintf("\rT: %d, E: %d\n", temp, endTime - startTime);
 }
 }
 
 static void service3(void *params)
 {
+    uint32_t startTime, endTime, releaseTime;
 while (!abortS3)
 {
-    xSemaphoreTake(semS3, portMAX_DELAY);
-    UARTprintf("\rS3:\n");
+    if(xSemaphoreTake(semS3, portMAX_DELAY) == 0) {
+        releaseTime = xTaskGetTickCount();
+    }
+    startTime = xTaskGetTickCount();
     if (abortS1)
     {
-        PWMOutputInvert(PWM1_BASE, PWM_OUT_1_BIT, true);
+        PWMOutputInvert(PWM0_BASE, PWM_OUT_1_BIT, true);
     }
+    endTime = xTaskGetTickCount();
+    UARTprintf("\rS3 E: %d\n", endTime - startTime);
 }
 }
 
