@@ -14,7 +14,7 @@
  * Date: 9th April 2024
  *
  * */
-#define TARGET_IS_TM4C123_RA1
+//#define TARGET_IS_TM4C123_RA1
 #include <stdbool.h>
 #include <stdint.h>
 #include "inc/hw_memmap.h"
@@ -247,6 +247,12 @@ void seat_pwm_init()
                      PWMGenPeriodGet(PWM0_BASE, PWM_GEN_0));
     PWMOutputState(PWM0_BASE, PWM_OUT_1_BIT, true);
     PWMGenEnable(PWM0_BASE, PWM_GEN_0);
+
+    SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOC);
+    GPIOPinTypeGPIOOutput(GPIO_PORTC_BASE, GPIO_PIN_6);
+    GPIOPinTypeGPIOOutput(GPIO_PORTC_BASE, GPIO_PIN_7);
+    GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_6, 1);
+    GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_7, 0);
 }
 
 // Runs @ 1000Hz
