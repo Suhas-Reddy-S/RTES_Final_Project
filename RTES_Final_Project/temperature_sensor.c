@@ -1,10 +1,18 @@
-/*
- * temperature_sensor.c
+/*******************************************************************************
+ * Copyright (C) 2023 by Jithendra and Suhas
  *
- *  Created on: 02-May-2024
- *      Author: jithe
+ * Redistribution, modification, or use of this software in source or binary
+ * forms is permitted as long as the files maintain this copyright. Users are
+ * permitted to modify this and use it to learn about the field of embedded
+ * software. Jithendra, Suhas and the University of Colorado are not liable for
+ * any misuse of this material.
+ * ****************************************************************************/
+/**
+ * @file temperature_sensor.c
+ * @brief Temperature sensor initialization and Access API's
+ * @author Jithendra and Suhas
+ * @date 2024-4-29
  */
-
 #define TARGET_IS_TM4C123_RA1
 #include "temperature_sensor.h"
 #include <stdbool.h>
@@ -17,6 +25,13 @@
 #include "driverlib/rom.h"
 #include "driverlib/sysctl.h"
 #include "driverlib/ssi.h"
+/**
+ * @func    tmp_sensor_init
+ * @brief   Initializes the temperature sensor (TMP) via SPI (SSI0)
+ * @param   None
+ * @return  None
+ * @reference   TMP Sensor Datasheet, TM4C123GH6PM example
+ */
 void tmp_sensor_init()
 {
     // Enable the SSI0 peripheral and GPIO port A
@@ -37,6 +52,13 @@ void tmp_sensor_init()
     SSIEnable(SSI0_BASE);
 }
 
+/**
+ * @func    tmp_readdata
+ * @brief   Reads temperature data from the TMP sensor
+ * @param   None
+ * @return  uint16_t: Temperature data (in degrees Celsius)
+ * @reference   TMP Sensor Datasheet, TM4C123GH6PM example
+ */
 uint16_t tmp_readdata(void)
 {
     uint32_t ui32Data;
@@ -56,4 +78,5 @@ uint16_t tmp_readdata(void)
     // Return the temperature data
     return tempData;
 }
+
 

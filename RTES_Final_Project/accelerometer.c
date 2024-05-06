@@ -1,3 +1,18 @@
+/*******************************************************************************
+ * Copyright (C) 2023 by Jithendra and Suhas
+ *
+ * Redistribution, modification, or use of this software in source or binary
+ * forms is permitted as long as the files maintain this copyright. Users are
+ * permitted to modify this and use it to learn about the field of embedded
+ * software. Jithendra, Suhas and the University of Colorado are not liable for
+ * any misuse of this material.
+ * ****************************************************************************/
+/**
+ * @file accelerometer.c
+ * @brief Accelerometer initialization and access APIs
+ * @author Jithendra and Suhas
+ * @date 2024-4-29
+ */
 #define TARGET_IS_TM4C123_RA1
 #include "accelerometer.h"
 #include <stdbool.h>
@@ -13,6 +28,13 @@
 #include "driverlib/i2c.h"
 #include "stdarg.h"
 
+/**
+ * @func    init_i2c0
+ * @brief   Initializes I2C0 peripheral and GPIO port B
+ * @param   None
+ * @return  None
+ * @reference   TivaWare Peripheral Driver Library User's Guide
+ */
 void init_i2c0(void)
 {
     // Enable the I2C0 peripheral and GPIO port B
@@ -33,6 +55,15 @@ void init_i2c0(void)
     // Wake up MPU6050 from sleep by writing to its PWR_MGMT_1 register
     write_to_accelerometer(I2C0_BASE, 0x68, 2, 0x6B, 0x00);
 }
+/**
+ * @func    write_to_accelerometer
+ * @brief   Writes data to the specified register of the accelerometer via I2C communication
+ * @param   ui32Base: Base address of the I2C module
+ * @param   ui8SlaveAddr: 7-bit slave address of the accelerometer device
+ * @param   nargs: Number of arguments to be written, including the register address
+ * @param   ...: Variable number of arguments to be written, starting with the register address followed by data bytes
+ * @return  None
+ */
 void write_to_accelerometer(uint32_t ui32Base, uint8_t ui8SlaveAddr,
                             uint8_t nargs, ...)
 {
@@ -81,6 +112,15 @@ void write_to_accelerometer(uint32_t ui32Base, uint8_t ui8SlaveAddr,
     // End variable argument list
     va_end(vargs);
 }
+
+/**
+ * @func    read_from_accelerometer
+ * @brief   Reads data from the specified register of the accelerometer via I2C communication
+ * @param   ui32Base: Base address of the I2C module
+ * @param   ui8SlaveAddr: 7-bit slave address of the accelerometer device
+ * @param   reg: Register address to read from
+ * @return  Data read from the specified register
+ */
 uint32_t read_from_accelerometer(uint32_t ui32Base, uint8_t ui8SlaveAddr,
                                  uint8_t reg)
 {
@@ -110,4 +150,5 @@ uint32_t read_from_accelerometer(uint32_t ui32Base, uint8_t ui8SlaveAddr,
     // Return the data read from the master data register
     return I2CMasterDataGet(ui32Base);
 }
+
 

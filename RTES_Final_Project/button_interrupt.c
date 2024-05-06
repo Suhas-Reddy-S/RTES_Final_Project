@@ -1,3 +1,18 @@
+/*******************************************************************************
+ * Copyright (C) 2023 by Jithendra and Suhas
+ *
+ * Redistribution, modification, or use of this software in source or binary
+ * forms is permitted as long as the files maintain this copyright. Users are
+ * permitted to modify this and use it to learn about the field of embedded
+ * software. Jithendra, Suhas and the University of Colorado are not liable for
+ * any misuse of this material.
+ * ****************************************************************************/
+/**
+ * @file button_interrupt.c
+ * @brief Button initialization
+ * @author Jithendra and Suhas
+ * @date 2024-4-29
+ */
 #define TARGET_IS_TM4C123_RA1
 #include "button_interrupt.h"
 #include <stdbool.h>
@@ -10,6 +25,13 @@
 #include "driverlib/rom.h"
 #include "driverlib/sysctl.h"
 
+/**
+ * @func    button_init
+ * @brief   Initializes the GPIO pins and interrupts for button functionality
+ * @param   None
+ * @return  None
+ * @reference   TM4C123GH6PM examples
+ */
 void button_init()
 {
     // Enable the GPIO Port F peripheral
@@ -38,3 +60,4 @@ void button_init()
     // Enable the global interrupt flag
     ROM_IntMasterEnable();
 }
+
